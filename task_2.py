@@ -4,8 +4,8 @@ import math
 
 def draw_pythagoras_tree(t, length, depth, angle=45):
     if depth == 0:
-        t.forward(length)  # Намалювати лінію вперед
-        t.backward(length)  # Повернутися назад
+        t.forward(length)
+        t.backward(length)
         return
 
     # Намалювати стовбур

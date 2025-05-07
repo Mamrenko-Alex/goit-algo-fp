@@ -103,6 +103,7 @@ class LinkedList:
         # Update the head of the combined list
         self.head = dummy.next
 
+
 llist = LinkedList()
 
 # Вставляємо вузли в початок
@@ -131,7 +132,7 @@ if element:
     print(element.data)
 
 # Реверс зв'язного списку
-llist.reverse() 
+llist.reverse()
 print("\nЗв'язний список після реверсу:")
 llist.print_list()
 
@@ -140,6 +141,7 @@ llist.sort()
 print("\nЗв'язний список після сортування:")
 llist.print_list()
 
+# Створення другого зв'язного списку
 llist_2 = LinkedList()
 
 # Вставляємо вузли в початок
@@ -148,6 +150,7 @@ llist_2.insert_at_beginning(33)
 llist_2.insert_at_beginning(150)
 llist_2.insert_at_beginning(19)
 
+# cортуємо другий зв'язний список
 llist_2.sort()
 
 llist_2.print_list()
