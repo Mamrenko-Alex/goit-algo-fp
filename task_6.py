@@ -29,19 +29,53 @@ def greedy_algorithm(items, budget):
         for item, data in result.items():
             print(
                 f"{item}: Вартість: {data['cost']}, Калорії: {data['calories']}")
+        total_calories = sum(d["calories"] for d in result.values())
+        print(f"Сума калорій: {total_calories}")
     else:
         print("Не вибрано жодного продукту.")
 
 
 # Виклик жадібного алгоритму
+print("Жадібний алгоритм:")
 greedy_algorithm(items, budget)
+print("____________________________________________")
 
 # динамічне програмування
 # вибір продуктів з максимальною калорійністю в межах бюджету
 
 
 def dynamic_programming(items, budget):
-    pass
+    n = len(items)
+    dp = [[0 for _ in range(budget + 1)] for _ in range(n + 1)]
+
+    for i in range(1, n + 1):
+        item, data = list(items.items())[i - 1]
+        for w in range(budget + 1):
+            if data["cost"] <= w:
+                dp[i][w] = max(dp[i - 1][w], dp[i - 1]
+                               [w - data["cost"]] + data["calories"])
+            else:
+                dp[i][w] = dp[i - 1][w]
+
+    result = {}
+    w = budget
+    for i in range(n, 0, -1):
+        if dp[i][w] != dp[i - 1][w]:
+            item, data = list(items.items())[i - 1]
+            result[item] = data
+            w -= data["cost"]
+
+    if result:
+        print("\nВибрані продукти:")
+        for item, data in result.items():
+            print(
+                f"{item}: Вартість: {data['cost']}, Калорії: {data['calories']}")
+        total_calories = sum(d["calories"] for d in result.values())
+        print(f"Сума калорій: {total_calories}")
+    else:
+        print("Не вибрано жодного продукту.")
 
 
+# Виклик динамічного програмування
+print("\nДинамічне програмування:")
 dynamic_programming(items, budget)
