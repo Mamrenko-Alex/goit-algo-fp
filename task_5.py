@@ -5,7 +5,7 @@ from collections import deque
 
 
 class Node:
-    def __init__(self, key, color="#87CEEB"):  # skyblue за замовчуванням
+    def __init__(self, key, color="#87CEEB"):
         self.left = None
         self.right = None
         self.val = key
@@ -54,16 +54,13 @@ def draw_tree_dynamic(root, visited_nodes, title="Tree Traversal"):
     ax.set_title(title)
 
     for step, node in enumerate(visited_nodes):
-        # Генерація кольору: темний → світлий синій
-        intensity = int(
-            50 + (205 * step / max(1, len(visited_nodes) - 1)))  # 50-255
-        hex_color = f"#{intensity:02x}{intensity:02x}f0"
-        node.color = hex_color
+        highlight_color = "#1296F0"
+        node.color = highlight_color
+        tree.nodes[node.id]['color'] = highlight_color
 
-        # Оновлення графу
         ax.clear()
         labels = {n[0]: n[1]['label'] for n in tree.nodes(data=True)}
-        colors = [n[1]['color'] for n in tree.nodes(data=True)]
+        colors = [tree.nodes[n]['color'] for n in tree.nodes]
 
         nx.draw(tree, pos=pos, labels=labels, arrows=False,
                 node_size=2500, node_color=colors, font_size=10, ax=ax)
@@ -105,7 +102,6 @@ def dfs_traversal(root):
         visited.append(node)
         seen.add(node.id)
 
-        # Правий додається першим, щоб лівий оброблявся першим
         if node.right:
             stack.append(node.right)
         if node.left:
@@ -114,10 +110,7 @@ def dfs_traversal(root):
     return visited
 
 
-# --- Головна частина ---
-
 if __name__ == "__main__":
-    # Тестовий приклад купи
     heap_array = [1, 2, 3, 4, 5, 7, 10]
     root = build_heap_tree(heap_array)
 
@@ -126,7 +119,6 @@ if __name__ == "__main__":
     draw_tree_dynamic(root, bfs_result, title="BFS Traversal")
 
     # DFS
-    # Потрібно скинути кольори перед повторним проходом
     for node in bfs_result:
         node.color = "#87CEEB"
     dfs_result = dfs_traversal(root)
